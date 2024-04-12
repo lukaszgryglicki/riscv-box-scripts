@@ -16,6 +16,7 @@ do
     fi
     fns+=("$f")
 done < <(find . -type f ! -iname '*_adjvid.mp4' -print0)
+#done < <(find . -type f -iname '* *.*' -print0)
 
 shuffle() {
    local i tmp size max rand
