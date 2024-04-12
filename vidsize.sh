@@ -6,16 +6,19 @@ then
     exit 1
 fi
 
-width=$(ffmpeg -i "$1" 2>&1 | grep Video: | grep -Po '\d{3,5}x\d{3,5}' | cut -d'x' -f1)
-if [ -z "$width" ]
-then
-    echo "$0: cannot get $1 video width"
-    exit 1
-fi
-height=$(ffmpeg -i "$1" 2>&1 | grep Video: | grep -Po '\d{3,5}x\d{3,5}' | cut -d'x' -f2)
-if [ -z "$height" ]
-then
-    echo "$0: cannot get $1 video height"
-    exit 1
-fi
-echo "$1 is ($width x $height)"
+for f in "$@"
+do
+    width=$(ffmpeg -i "$f" 2>&1 | grep Video: | grep -Po '\d{3,5}x\d{3,5}' | cut -d'x' -f1)
+    if [ -z "$width" ]
+    then
+        echo "$0: cannot get $f video width"
+        continue
+    fi
+    height=$(ffmpeg -i "$f" 2>&1 | grep Video: | grep -Po '\d{3,5}x\d{3,5}' | cut -d'x' -f2)
+    if [ -z "$height" ]
+    then
+        echo "$0: cannot get $f video height"
+        continue
+    fi
+    echo "$f is ($width x $height)"
+done
