@@ -1,6 +1,7 @@
 #!/bin/bash
 # ALWAYS=1 - process, even if the video is already low res enough
 # REMOVE=1 - remove source file if succeeded
+# NO_RAND=1 - do not randomize order
 > convert_all.log
 > convert_all.err
 > convert_all.ok
@@ -15,6 +16,24 @@ do
     fi
     fns+=("$f")
 done < <(find . -type f ! -iname '*_adjvid.mp4' -print0)
+
+shuffle() {
+   local i tmp size max rand
+
+   size=${#fns[*]}
+   max=$(( 32768 / size * size ))
+
+   for ((i=size-1; i>0; i--)); do
+      while (( (rand=$RANDOM) >= max )); do :; done
+      rand=$(( rand % (i+1) ))
+      tmp=${fns[i]} fns[i]=${fns[rand]} fns[rand]=$tmp
+   done
+}
+
+if [ -z "$NO_RAND" ]
+then
+    shuffle
+fi
 
 n_files="${#fns[@]}"
 for i in "${!fns[@]}"
