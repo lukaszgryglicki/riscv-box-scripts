@@ -72,13 +72,13 @@ fi
 
 if [ ! -z "$no_rescale" ]
 then
-    ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -strict experimental -map 0 -c:a aac -b:a 64k -ac 1 -ar 22050 "$output" || exit 1
+    ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
 else
     if [ -z "$flip" ]
     then
-        ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=$nw:-2" -strict experimental -map 0 -c:a aac -b:a 64k -ac 1 -ar 22050 "$output" || exit 1
+        ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=$nw:-2" -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
     else
-        ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=-2:$nh" -strict experimental -map 0 -c:a aac -b:a 64k -ac 1 -ar 22050 "$output" || exit 1
+        ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=-2:$nh" -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
     fi
 fi
 
