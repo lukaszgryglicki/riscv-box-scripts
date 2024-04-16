@@ -21,4 +21,12 @@ do
         continue
     fi
     echo "$f is ($width x $height)"
+
+    ima=$(file -b -i "$f" | grep 'image/')
+    if [ ! -z "$ima" ]
+    then
+        echo "$0: $f is an image not video ($ima)"
+        # file "$f"
+        continue
+    fi
 done

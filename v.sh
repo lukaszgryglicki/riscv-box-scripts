@@ -1,12 +1,12 @@
 #!/bin/bash
-export MESA_GL_VERSION_OVERRIDE=3.2COMPAT
-export MESA_GLSL_VERSION_OVERRIDE=320
+# export MESA_GL_VERSION_OVERRIDE=3.2COMPAT
+# export MESA_GLSL_VERSION_OVERRIDE=320
 
 mpv --vo=x11 --profile=low-latency --ao=alsa --audio-device="alsa/dmix:CARD=LightSoundCard,DEV=0" "$@"
 
 # mpv -vo x11 --ao=alsa --audio-device="alsa/dmix:CARD=LightSoundCard,DEV=0" "$@"
-#mpv --vo=x11 --profile=sw-fast --ao=alsa --audio-device="alsa/dmix:CARD=LightSoundCard,DEV=0" "$@"
-#mpv --vo=gpu --gpu-api=opengl --opengl-es=yes --ao=alsa --audio-device="alsa/dmix:CARD=LightSoundCard,DEV=0" "$@"
+# mpv --vo=x11 --profile=sw-fast --ao=alsa --audio-device="alsa/dmix:CARD=LightSoundCard,DEV=0" "$@"
+# mpv --vo=gpu --gpu-api=opengl --opengl-es=yes --ao=alsa --audio-device="alsa/dmix:CARD=LightSoundCard,DEV=0" "$@"
 #  libmpv           render API for libmpv
 #  gpu              Shader-based GPU Renderer
 #  gpu-next         Video output based on libplacebo

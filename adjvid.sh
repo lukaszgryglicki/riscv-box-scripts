@@ -29,6 +29,14 @@ then
 fi
 echo "$1 is ($width x $height)"
 
+ima=$(file -b -i "$1" | grep 'image/')
+if [ ! -z "$ima" ]
+then
+    echo "$0: $1 is an image not video ($ima)"
+    file "$1"
+    exit 1
+fi
+
 if ( [ ! -z "$MIN_WIDTH" ] && [ "$width" -lt "$MIN_WIDTH" ] )
 then
     echo "$0: specified min width $MIN_WIDTH - $1 width is $width, skipping"
