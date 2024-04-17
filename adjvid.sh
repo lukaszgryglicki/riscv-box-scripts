@@ -80,13 +80,13 @@ fi
 
 if [ ! -z "$no_rescale" ]
 then
-    ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
+    ffmpeg -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
 else
     if [ -z "$flip" ]
     then
-        ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=$nw:-2" -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
+        ffmpeg -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=$nw:-2" -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
     else
-        ffmpeg -nostats -loglevel error -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=-2:$nh" -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
+        ffmpeg -hide_banner -threads 4 -y -i "$1" -c:v libx264 -crf 25 -preset:v ultrafast -preset:a ultrafast -tune fastdecode -filter:v "scale=-2:$nh" -strict experimental -c:a aac -b:a 64k -ac 1 -ar 22050 -dn -sn "$output" || exit 1
     fi
 fi
 
@@ -100,7 +100,7 @@ fi
 # nh=800
 # ffmpeg -y -i "$1" -c:v libx264 -crf 25 -preset ultrafast -tune fastdecode -filter:v "scale='min($nw,iw)':'min($nh,ih)':force_original_aspect_ratio=decrease,pad=$nw:$nh:(ow-iw)/2:(oh-ih)/2" -map 0 -c:a copy -c:s copy "$output" || exit 1
 # ultrafast superfast veryfast fast
-# ffmpeg -hide_banner -y -i "$1" -c:v libx264 -crf 23 -preset ultrafast -tune film -filter:v "scale='min($nw,iw)':'min($nh,ih)'" -map 0 -c:a copy -c:s copy "$output"
+# ffmpeg -loglevel error -hide_banner -y -i "$1" -c:v libx264 -crf 23 -preset ultrafast -tune film -filter:v "scale='min($nw,iw)':'min($nh,ih)'" -map 0 -c:a copy -c:s copy "$output"
 # ffmpeg -y -i "$1" -c:v libx265 -crf 21 -tag:v hvc1 -preset fast -filter:v "scale='min($nw,iw)':min'($nh,ih)':force_original_aspect_ratio=decrease,pad=$nw:$nh:(ow-iw)/2:(oh-ih)/2" -map 0 -c:a copy -c:s copy "$output"
 # ffmpeg -nostats -loglevel 0 -y -i "$1" -c:v libx264 -crf 21 -preset veryfast -filter:v "scale='min($nw,iw)':min'($nh,ih)':force_original_aspect_ratio=decrease,pad=$nw:$nh:(ow-iw)/2:(oh-ih)/2" -map 0 -c:a copy -c:s copy "$output"
 # output="${1%.*}_adjvid.mp4"
